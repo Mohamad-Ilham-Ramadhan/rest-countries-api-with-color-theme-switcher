@@ -41,11 +41,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Header({ colorScheme, toggleColorScheme }) {
+function Header({ className, colorScheme, toggleColorScheme }) {
   const styles = useStyles();
   return (
     <AppBar
-      className={clsx(styles.root, colorScheme == "dark" ? "dark-mode" : null)}
+      className={clsx(
+        styles.root,
+        className,
+        colorScheme == "dark" ? "dark-mode" : null
+      )}
       position="relative"
       elevation={3}
     >
