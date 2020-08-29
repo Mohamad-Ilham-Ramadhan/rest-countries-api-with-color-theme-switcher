@@ -1,10 +1,17 @@
 import React from "react";
+import { connect } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
+
+import Header from "./Header";
+
+// Actions:
+import fetchCountries from "../actions/fetchCountries";
 
 const useStyles = makeStyles((theme) => ({
   darkBlue: {
     height: 100,
     color: "white",
+    marginTop: 100,
     backgroundColor: theme.palette.neutral.darkBlue,
   },
   veryDarkBlueDMBG: {
@@ -31,12 +38,11 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.neutral.white,
   },
 }));
-
-export default function App() {
+export default function App({ fetchCountries, countries }) {
   const styles = useStyles();
   return (
     <>
-      <div>My App</div>
+      <Header />
       <div className={styles.darkBlue}>Dark blue</div>
       <div className={styles.veryDarkBlueDMBG}>Very dark blue DMBG</div>
       <div className={styles.veryDarkBlueLMT}>Very dark blue LMT</div>

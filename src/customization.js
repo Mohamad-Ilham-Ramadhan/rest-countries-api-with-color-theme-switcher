@@ -39,10 +39,20 @@ const customizedTheme = createMuiTheme({
         "@font-face": [nunitoSans300, nunitoSans600, nunitoSans800],
         body: {
           fontFamily: "Nunito Sans, Roboto, Helvetica, Arial, sans-serif",
+          backgroundColor: veryLightGray,
         },
+      },
+    },
+    MuiButton: {
+      root: {
+        textTransform: "none",
       },
     },
   },
 });
+customizedTheme.typography.h2 = {
+  fontSize: ".875rem",
+  fontWeight: "800",
+};
 
 export default customizedTheme;
