@@ -8,6 +8,14 @@ import Header from "./Header";
 import fetchCountries from "../actions/fetchCountries";
 
 const useStyles = makeStyles((theme) => ({
+  "@global": {
+    body: (props) => ({
+      backgroundColor:
+        props.colorScheme == "dark"
+          ? theme.palette.neutral.veryDarkBlueDMBG
+          : theme.palette.neutral.veryLightGray,
+    }),
+  },
   darkBlue: {
     height: 100,
     color: "white",
@@ -38,8 +46,8 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.neutral.white,
   },
 }));
-export default function App({ fetchCountries, countries }) {
-  const styles = useStyles();
+function App({ colorScheme }) {
+  const styles = useStyles({ colorScheme });
   return (
     <>
       <Header />
@@ -52,3 +60,9 @@ export default function App({ fetchCountries, countries }) {
     </>
   );
 }
+function mapState(state) {
+  return {
+    colorScheme: state.colorScheme,
+  };
+}
+export default connect(mapState)(App);

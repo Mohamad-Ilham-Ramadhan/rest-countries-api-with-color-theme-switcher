@@ -17,17 +17,21 @@ const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: "white",
     color: theme.palette.neutral.veryDarkBlueLMT,
-    padding: [16, 0],
+    padding: [12, 0],
 
     "&.dark-mode": {
-      backgroundColor: theme.palette.neutral.veryDarkBlueDMBG,
+      backgroundColor: theme.palette.neutral.darkBlue,
       color: "white",
     },
   },
   mode: {
     marginLeft: "auto",
+    padding: {
+      left: 0,
+      right: 0,
+    },
     "& span": {
-      fontSize: ".75rem",
+      fontSize: ".775rem",
       fontWeight: 600,
     },
     "& svg": {
@@ -42,6 +46,8 @@ function Header({ colorScheme, toggleColorScheme }) {
   return (
     <AppBar
       className={clsx(styles.root, colorScheme == "dark" ? "dark-mode" : null)}
+      position="relative"
+      elevation={3}
     >
       <Toolbar>
         <Typography variant="h2" component="h1">
@@ -52,8 +58,17 @@ function Header({ colorScheme, toggleColorScheme }) {
           color="inherit"
           onClick={toggleColorScheme}
         >
-          <IconMoon />
-          Dark mode
+          {colorScheme == "dark" ? (
+            <>
+              <WbSunnyOutlinedIcon />
+              Light mode
+            </>
+          ) : (
+            <>
+              <IconMoon />
+              Dark mode
+            </>
+          )}
         </Button>
       </Toolbar>
     </AppBar>
