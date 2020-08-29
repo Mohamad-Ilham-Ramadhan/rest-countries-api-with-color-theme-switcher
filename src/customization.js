@@ -32,6 +32,9 @@ const customizedTheme = createMuiTheme({
       veryLightGray,
       white,
     },
+    text: {
+      primary: veryDarkBlueLMT,
+    },
   },
   shadows: [
     "none",
@@ -66,6 +69,7 @@ const customizedTheme = createMuiTheme({
         "@font-face": [nunitoSans300, nunitoSans600, nunitoSans800],
         body: {
           fontFamily: "Nunito Sans, Roboto, Helvetica, Arial, sans-serif",
+          color: veryDarkBlueLMT,
         },
       },
     },

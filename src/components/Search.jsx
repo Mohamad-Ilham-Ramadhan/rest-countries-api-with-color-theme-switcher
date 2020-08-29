@@ -48,11 +48,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Search({ colorScheme }) {
+function Search({ className, colorScheme }) {
   const styles = useStyles();
   return (
     <Paper
-      className={clsx(styles.root, colorScheme == "dark" ? "dark-mode" : null)}
+      className={clsx(
+        styles.root,
+        className,
+        colorScheme == "dark" ? "dark-mode" : null
+      )}
       elevation={4}
     >
       <IconButton

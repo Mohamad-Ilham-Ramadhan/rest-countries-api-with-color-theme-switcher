@@ -6,6 +6,7 @@ import Container from "@material-ui/core/Container";
 
 import Header from "./Header";
 import Search from "./Search";
+import Filter from "./Filter";
 
 // Actions:
 import fetchCountries from "../actions/fetchCountries";
@@ -21,6 +22,9 @@ const useStyles = makeStyles((theme) => ({
   },
   header: {
     marginBottom: 24,
+  },
+  search: {
+    marginBottom: 32,
   },
   darkBlue: {
     height: 100,
@@ -58,7 +62,8 @@ function App({ colorScheme }) {
     <>
       <Header className={styles.header} />
       <Container>
-        <Search />
+        <Search className={styles.search} />
+        <Filter />
         <div className={styles.darkBlue}>Dark blue</div>
         <div className={styles.veryDarkBlueDMBG}>Very dark blue DMBG</div>
         <div className={styles.veryDarkBlueLMT}>Very dark blue LMT</div>
