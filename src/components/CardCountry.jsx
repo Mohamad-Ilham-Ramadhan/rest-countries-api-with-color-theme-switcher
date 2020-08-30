@@ -10,6 +10,7 @@ import Typography from "@material-ui/core/Typography";
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    maxWidth: 263,
     backgroundColor: "white",
     "&.dark-mode": {
       backgroundColor: theme.palette.neutral.darkBlue,
@@ -17,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   media: {
-    height: 160,
+    width: "100%",
   },
   content: {
     padding: [24, 24, 40, 24],
@@ -55,7 +56,7 @@ function CardCountry({
       elevation={4}
     >
       <CardActionArea>
-        <CardMedia className={styles.media} image={image} title="flag" />
+        <img className={styles.media} src={image} alt="Flag" />
         <CardContent className={styles.content}>
           <Typography className={styles.name} variant="h2" component="h2">
             {name}
