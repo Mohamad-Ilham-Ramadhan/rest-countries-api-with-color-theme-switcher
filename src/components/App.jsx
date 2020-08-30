@@ -79,7 +79,7 @@ function App({ colorScheme }) {
   return (
     <>
       <Header className={styles.header} />
-      <Container className={styles.containerSearch}>
+      {/* <Container className={styles.containerSearch}>
         <Grid container>
           <Grid item xs={12} md={9}>
             <Search className={styles.search} />
@@ -91,10 +91,10 @@ function App({ colorScheme }) {
       </Container>
       <Container className={styles.containerCountries}>
         <ListCountries />
-      </Container>
-      {/* <Container className={styles.containerDetail}>
-        <Detail />
       </Container> */}
+      <Container className={styles.containerDetail}>
+        <Detail />
+      </Container>
       <div className={styles.darkBlue}>Dark blue</div>
       <div className={styles.veryDarkBlueDMBG}>Very dark blue DMBG</div>
       <div className={styles.veryDarkBlueLMT}>Very dark blue LMT</div>
