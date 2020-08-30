@@ -31,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
     marginRight: 12,
     "& svg": {
       fontSize: "1.35rem",
+      color: theme.palette.neutral.darkGray,
       [theme.breakpoints.up("md")]: {
         fontSize: "1.5rem",
       },
