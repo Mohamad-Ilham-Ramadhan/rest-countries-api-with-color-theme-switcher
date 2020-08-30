@@ -34,8 +34,12 @@ const useStyles = makeStyles((theme) => ({
   input: {
     width: "100%",
     color: theme.palette.neutral.darkBlue,
+    minHeight: 50,
+    display: "flex",
+    alignItems: "center",
     "& input": {
       fontSize: ".85rem",
+      height: "unset",
     },
     "&.dark-mode": {
       "& input": {

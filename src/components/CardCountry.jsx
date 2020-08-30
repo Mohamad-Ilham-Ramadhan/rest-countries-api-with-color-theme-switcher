@@ -57,7 +57,7 @@ function CardCountry({
       <CardActionArea>
         <CardMedia className={styles.media} image={image} title="flag" />
         <CardContent className={styles.content}>
-          <Typography className={styles.name} variant="h1" component="h2">
+          <Typography className={styles.name} variant="h2" component="h2">
             {name}
           </Typography>
           <Typography className={styles.info}>

@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 
 import Container from "@material-ui/core/Container";
+import Grid from "@material-ui/core/Grid";
 
 import Header from "./Header";
 import Search from "./Search";
@@ -74,16 +75,22 @@ function App({ colorScheme }) {
   return (
     <>
       <Header className={styles.header} />
-      {/* <Container className={styles.containerSearch}>
-        <Search className={styles.search} />
-        <Filter />
+      <Container className={styles.containerSearch}>
+        <Grid container>
+          <Grid item xs={12} md={6}>
+            <Search className={styles.search} />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <Filter />
+          </Grid>
+        </Grid>
       </Container>
       <Container className={styles.containerCountries}>
         <ListCountries />
-      </Container> */}
-      <Container className={styles.containerDetail}>
-        <Detail />
       </Container>
+      {/* <Container className={styles.containerDetail}>
+        <Detail />
+      </Container> */}
       <div className={styles.darkBlue}>Dark blue</div>
       <div className={styles.veryDarkBlueDMBG}>Very dark blue DMBG</div>
       <div className={styles.veryDarkBlueLMT}>Very dark blue LMT</div>

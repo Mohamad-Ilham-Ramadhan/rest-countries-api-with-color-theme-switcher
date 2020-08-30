@@ -24,6 +24,12 @@ const useStyles = makeStyles((theme) => ({
       color: "white",
     },
   },
+  container: {
+    display: "flex",
+    alignItems: "center",
+    position: "relative",
+    minHeight: 56,
+  },
   mode: {
     marginLeft: "auto",
     padding: {
@@ -33,10 +39,16 @@ const useStyles = makeStyles((theme) => ({
     "& span": {
       fontSize: ".775rem",
       fontWeight: 600,
+      [theme.breakpoints.up("md")]: {
+        fontSize: "1rem",
+      },
     },
     "& svg": {
       fontSize: "1rem",
       marginRight: 8,
+      [theme.breakpoints.up("md")]: {
+        fontSize: "1.15rem",
+      },
     },
   },
 }));
@@ -53,8 +65,8 @@ function Header({ className, colorScheme, toggleColorScheme }) {
       position="relative"
       elevation={3}
     >
-      <Toolbar>
-        <Typography variant="h2" component="h1">
+      <Container className={styles.container}>
+        <Typography variant="h4" component="h1">
           Where in the world?
         </Typography>
         <Button
@@ -65,16 +77,16 @@ function Header({ className, colorScheme, toggleColorScheme }) {
           {colorScheme == "dark" ? (
             <>
               <WbSunnyOutlinedIcon />
-              Light mode
+              Light Mode
             </>
           ) : (
             <>
               <IconMoon />
-              Dark mode
+              Dark Mode
             </>
           )}
         </Button>
-      </Toolbar>
+      </Container>
     </AppBar>
   );
 }

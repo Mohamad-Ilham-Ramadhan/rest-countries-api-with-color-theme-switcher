@@ -79,6 +79,7 @@ const customizedTheme = createMuiTheme({
         },
       },
     },
+
     MuiButton: {
       root: {
         textTransform: "none",
@@ -90,6 +91,9 @@ const customizedTheme = createMuiTheme({
 customizedTheme.typography.h1 = {
   fontSize: "1.35rem",
   fontWeight: "800",
+  [customizedTheme.breakpoints.up("md")]: {
+    fontSize: "1.35rem",
+  },
 };
 customizedTheme.typography.h2 = {
   fontSize: "1.15rem",
@@ -102,6 +106,16 @@ customizedTheme.typography.h3 = {
 customizedTheme.typography.h4 = {
   fontSize: ".875rem",
   fontWeight: "800",
+  [customizedTheme.breakpoints.up("md")]: {
+    fontSize: "1.475rem",
+  },
+};
+customizedTheme.overrides.MuiContainer = {
+  maxWidthLg: {
+    [customizedTheme.breakpoints.up("lg")]: {
+      maxWidth: 1280,
+    },
+  },
 };
 
 export default customizedTheme;
