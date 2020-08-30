@@ -26,12 +26,16 @@ const useStyles = makeStyles((theme) => ({
       width: "100%",
     },
     "& p": {
-      fontSize: ".75rem",
+      fontSize: ".765rem",
       fontWeight: 600,
     },
     "& svg": {
       marginLeft: "auto",
       fontSize: "1rem",
+    },
+    "&.dark-mode": {
+      backgroundColor: theme.palette.neutral.darkBlue,
+      color: "white",
     },
   },
   menu: {
@@ -43,9 +47,13 @@ const useStyles = makeStyles((theme) => ({
       justifyContent: "start",
       padding: [2, 0],
       "& p": {
-        fontSize: ".75rem",
+        fontSize: ".765rem",
         fontWeight: 600,
       },
+    },
+    "&.dark-mode": {
+      backgroundColor: theme.palette.neutral.darkBlue,
+      color: "white",
     },
   },
   backdrop: {
@@ -70,7 +78,7 @@ function Filter({ className, colorScheme }) {
         elevation={4}
       >
         <ButtonBase onClick={() => setOpen((open) => !open)}>
-          <Typography>Filter By Region</Typography>
+          <Typography>Filter by Region</Typography>
           <ExpandMoreIcon />
         </ButtonBase>
       </Paper>
