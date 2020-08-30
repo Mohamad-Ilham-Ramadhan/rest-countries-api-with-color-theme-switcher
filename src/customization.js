@@ -74,20 +74,32 @@ const customizedTheme = createMuiTheme({
         button: {
           fontFamily: "inherit",
         },
+        ".weight-600": {
+          fontWeight: "600 !important",
+        },
       },
     },
     MuiButton: {
       root: {
         textTransform: "none",
+        transition: "background-color 0ms",
       },
     },
   },
 });
 customizedTheme.typography.h1 = {
-  fontSize: "1.15rem",
+  fontSize: "1.35rem",
   fontWeight: "800",
 };
 customizedTheme.typography.h2 = {
+  fontSize: "1.15rem",
+  fontWeight: "800",
+};
+customizedTheme.typography.h3 = {
+  fontSize: "1rem",
+  fontWeight: "800",
+};
+customizedTheme.typography.h4 = {
   fontSize: ".875rem",
   fontWeight: "800",
 };

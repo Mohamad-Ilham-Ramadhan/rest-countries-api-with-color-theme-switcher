@@ -8,6 +8,7 @@ import Header from "./Header";
 import Search from "./Search";
 import Filter from "./Filter";
 import ListCountries from "./ListCountries";
+import Detail from "./Detail";
 
 // Actions:
 import fetchCountries from "../actions/fetchCountries";
@@ -27,6 +28,10 @@ const useStyles = makeStyles((theme) => ({
   containerCountries: {
     paddingLeft: 56,
     paddingRight: 56,
+  },
+  containerDetail: {
+    paddingLeft: 24,
+    paddingRight: 24,
   },
   header: {
     marginBottom: 24,
@@ -69,12 +74,15 @@ function App({ colorScheme }) {
   return (
     <>
       <Header className={styles.header} />
-      <Container className={styles.containerSearch}>
+      {/* <Container className={styles.containerSearch}>
         <Search className={styles.search} />
         <Filter />
       </Container>
       <Container className={styles.containerCountries}>
         <ListCountries />
+      </Container> */}
+      <Container className={styles.containerDetail}>
+        <Detail />
       </Container>
       <div className={styles.darkBlue}>Dark blue</div>
       <div className={styles.veryDarkBlueDMBG}>Very dark blue DMBG</div>
