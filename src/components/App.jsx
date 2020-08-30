@@ -29,6 +29,10 @@ const useStyles = makeStyles((theme) => ({
   containerCountries: {
     paddingLeft: 56,
     paddingRight: 56,
+    [theme.breakpoints.up("md")]: {
+      paddingLeft: 24,
+      paddingRight: 24,
+    },
   },
   containerDetail: {
     paddingLeft: 24,

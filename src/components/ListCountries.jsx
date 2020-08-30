@@ -10,9 +10,15 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "space-around",
     flexWrap: "wrap",
+    [theme.breakpoints.up("md")]: {
+      justifyContent: "space-between",
+    },
   },
   card: {
     marginBottom: 40,
+  },
+  hack: {
+    width: 263,
   },
 }));
 
@@ -32,6 +38,11 @@ function ListCountries() {
           capital="Berlin"
         />
       ))}
+      {/* Tambahin hacks nya untuk mendorong last item jika "lubang" semaking banyak saat (viewport semakin lebar) */}
+      <i className={styles.hack} aria-hidden="true"></i>
+      <i className={styles.hack} aria-hidden="true"></i>
+      <i className={styles.hack} aria-hidden="true"></i>
+      <i className={styles.hack} aria-hidden="true"></i>
     </div>
   );
 }
