@@ -7,6 +7,7 @@ import Container from "@material-ui/core/Container";
 import Header from "./Header";
 import Search from "./Search";
 import Filter from "./Filter";
+import ListCountries from "./ListCountries";
 
 // Actions:
 import fetchCountries from "../actions/fetchCountries";
@@ -19,6 +20,13 @@ const useStyles = makeStyles((theme) => ({
           ? theme.palette.neutral.veryDarkBlueDMBG
           : theme.palette.neutral.veryLightGray,
     }),
+  },
+  containerSearch: {
+    marginBottom: 32,
+  },
+  containerCountries: {
+    paddingLeft: 56,
+    paddingRight: 56,
   },
   header: {
     marginBottom: 24,
@@ -61,16 +69,19 @@ function App({ colorScheme }) {
   return (
     <>
       <Header className={styles.header} />
-      <Container>
+      <Container className={styles.containerSearch}>
         <Search className={styles.search} />
         <Filter />
-        <div className={styles.darkBlue}>Dark blue</div>
-        <div className={styles.veryDarkBlueDMBG}>Very dark blue DMBG</div>
-        <div className={styles.veryDarkBlueLMT}>Very dark blue LMT</div>
-        <div className={styles.darkGray}>Dark gray</div>
-        <div className={styles.veryLightGray}>Very light gray</div>
-        <div className={styles.white}>white</div>
       </Container>
+      <Container className={styles.containerCountries}>
+        <ListCountries />
+      </Container>
+      <div className={styles.darkBlue}>Dark blue</div>
+      <div className={styles.veryDarkBlueDMBG}>Very dark blue DMBG</div>
+      <div className={styles.veryDarkBlueLMT}>Very dark blue LMT</div>
+      <div className={styles.darkGray}>Dark gray</div>
+      <div className={styles.veryLightGray}>Very light gray</div>
+      <div className={styles.white}>white</div>
     </>
   );
 }

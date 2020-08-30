@@ -21,7 +21,7 @@ const customizedTheme = createMuiTheme({
     },
   },
   typography: {
-    fontFamily: "Nunito Sans",
+    fontFamily: "Nunito Sans, Roboto, Helvetica, Arial, sans-serif",
   },
   palette: {
     neutral: {
@@ -71,6 +71,9 @@ const customizedTheme = createMuiTheme({
           fontFamily: "Nunito Sans, Roboto, Helvetica, Arial, sans-serif",
           color: veryDarkBlueLMT,
         },
+        button: {
+          fontFamily: "inherit",
+        },
       },
     },
     MuiButton: {
@@ -80,6 +83,10 @@ const customizedTheme = createMuiTheme({
     },
   },
 });
+customizedTheme.typography.h1 = {
+  fontSize: "1.15rem",
+  fontWeight: "800",
+};
 customizedTheme.typography.h2 = {
   fontSize: ".875rem",
   fontWeight: "800",
