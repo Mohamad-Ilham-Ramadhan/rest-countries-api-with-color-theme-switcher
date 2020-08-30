@@ -15,10 +15,15 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.neutral.darkGray,
     display: "flex",
     alignItems: "center",
+    minHeight: 50,
     paddingLeft: 16,
     "&.dark-mode": {
       backgroundColor: theme.palette.neutral.darkBlue,
       color: "white",
+    },
+    [theme.breakpoints.up("md")]: {
+      minHeight: 55,
+      maxWidth: 480,
     },
   },
   searchIcon: {
@@ -26,6 +31,9 @@ const useStyles = makeStyles((theme) => ({
     marginRight: 12,
     "& svg": {
       fontSize: "1.35rem",
+      [theme.breakpoints.up("md")]: {
+        fontSize: "1.5rem",
+      },
     },
     "&.dark-mode": {
       color: "white",
@@ -34,12 +42,16 @@ const useStyles = makeStyles((theme) => ({
   input: {
     width: "100%",
     color: theme.palette.neutral.darkBlue,
-    minHeight: 50,
-    display: "flex",
-    alignItems: "center",
     "& input": {
-      fontSize: ".85rem",
+      fontSize: ".9rem",
       height: "unset",
+      fontWeight: 600,
+      "&::placeholder": {
+        fontSize: ".85rem",
+      },
+      [theme.breakpoints.up("md")]: {
+        fontSize: "1rem",
+      },
     },
     "&.dark-mode": {
       "& input": {

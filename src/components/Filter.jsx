@@ -14,6 +14,9 @@ const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 200,
     position: "relative",
+    [theme.breakpoints.up("md")]: {
+      marginLeft: "auto",
+    },
   },
   select: {
     display: "flex",
@@ -24,14 +27,23 @@ const useStyles = makeStyles((theme) => ({
     "& button": {
       padding: [16, 16, 16, 24],
       width: "100%",
+      [theme.breakpoints.up("md")]: {
+        padding: [17, 16, 17, 24],
+      },
     },
     "& p": {
       fontSize: ".765rem",
       fontWeight: 600,
+      [theme.breakpoints.up("md")]: {
+        fontSize: ".875rem",
+      },
     },
     "& svg": {
       marginLeft: "auto",
       fontSize: "1rem",
+      [theme.breakpoints.up("md")]: {
+        fontSize: "1.15rem",
+      },
     },
     "&.dark-mode": {
       backgroundColor: theme.palette.neutral.darkBlue,
@@ -49,6 +61,12 @@ const useStyles = makeStyles((theme) => ({
       "& p": {
         fontSize: ".765rem",
         fontWeight: 600,
+      },
+      [theme.breakpoints.up("md")]: {
+        padding: [4, 0],
+        "& p": {
+          fontSize: ".85rem",
+        },
       },
     },
     "&.dark-mode": {
