@@ -2,6 +2,12 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  useRouteMatch,
+} from "react-router-dom";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
@@ -52,31 +58,40 @@ const useStyles = makeStyles((theme) => ({
 }));
 function App({ colorScheme, fetchCountries, filter }) {
   const styles = useStyles({ colorScheme });
+  // const match = useRouteMatch("/sdf");
   // componentDidMount
   useEffect(() => {
     fetchCountries();
   }, []);
+  // console.log(match);
   return (
-    <>
+    <Router>
       <Header className={styles.header} />
-      <Container className={styles.containerSearch}>
-        <Grid container>
-          <Grid item xs={12} md={9}>
-            <Search className={styles.search} />
-          </Grid>
-          <Grid item xs={12} md={3}>
-            <Filter />
-          </Grid>
-        </Grid>
-        <Typography variant="h1">{filter}</Typography>
-      </Container>
-      <Container className={styles.containerCountries}>
-        <ListCountries />
-      </Container>
-      {/* <Container className={styles.containerDetail}>
-        <Detail />
-      </Container> */}
-    </>
+      <Switch>
+        <Route path="/detail/:name">
+          <Container className={styles.containerDetail}>
+            <Detail />
+          </Container>
+        </Route>
+        <Route path="/">
+          <Container className={styles.containerSearch}>
+            <Grid container>
+              <Grid item xs={12} md={9}>
+                <Search className={styles.search} />
+              </Grid>
+              <Grid item xs={12} md={3}>
+                <Filter />
+              </Grid>
+            </Grid>
+            <Typography variant="h1">{filter}</Typography>
+          </Container>
+
+          <Container className={styles.containerCountries}>
+            <ListCountries />
+          </Container>
+        </Route>
+      </Switch>
+    </Router>
   );
 }
 function mapState(state) {

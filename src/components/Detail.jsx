@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import clsx from "clsx";
+import { useParams } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
@@ -114,8 +115,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Detail({ className, colorScheme }) {
+function Detail({ className, colorScheme, countryDetail, countries }) {
   const styles = useStyles();
+  const params = useParams();
+  window.countryDetail = countryDetail;
+  window.countries = countries;
+  console.log(window.countryDetail);
   return (
     <section
       className={clsx(
@@ -136,72 +141,67 @@ function Detail({ className, colorScheme }) {
       </Button>
       <Grid container>
         <Grid className={styles.gridFlag} item xs={12} md={6}>
-          <img className={styles.flag} src={flag} alt="Flag" />
+          <img className={styles.flag} src={countryDetail.flag} alt="Flag" />
         </Grid>
         <Grid className={styles.gridDetail} item xs={12} md={6}>
           <Typography className={styles.h1} variant="h1">
-            Germany
+            {countryDetail.name}
           </Typography>
           <Grid className={styles.detail} container>
             <Grid className={styles.detail1} item xs={12} md={6}>
               <Typography>
-                Native Name: <span>Deutschland</span>
+                Native Name: <span>{countryDetail.nativeName}</span>
               </Typography>
               <Typography>
-                Population: <span>81,770,900</span>
+                Population: <span>{countryDetail.population}</span>
               </Typography>
               <Typography>
-                Region: <span>Europe</span>
+                Region: <span>{countryDetail.region}</span>
               </Typography>
               <Typography>
-                Sub Region: <span>Western Europe</span>
+                Sub Region: <span>{countryDetail.subregion}</span>
               </Typography>
               <Typography>
-                Capital: <span>Berlin</span>
+                Capital: <span>{countryDetail.capital}</span>
               </Typography>
             </Grid>
             <Grid className={styles.detail2} item xs={12} md={6}>
               <Typography>
-                Top Level Domain: <span>.de</span>
+                Top Level Domain:{" "}
+                <span>{countryDetail.topLevelDomain.toString()}</span>
               </Typography>
               <Typography>
-                Currencies: <span>Euro</span>
+                Currencies:{" "}
+                <span>
+                  {countryDetail.currencies
+                    .map((currency) => currency.name)
+                    .join(", ")}
+                </span>
               </Typography>
               <Typography>
-                Languages: <span>German</span>
+                Languages:{" "}
+                <span>
+                  {countryDetail.languages
+                    .map((language) => language.name)
+                    .join(", ")}
+                </span>
               </Typography>
             </Grid>
             <div className={styles.wrapperBorders}>
               <Typography variant="h3" component="h2">
                 Border Countries:
               </Typography>
-              <Button
-                className={clsx(
-                  styles.bc,
-                  colorScheme == "dark" ? "dark-mode" : null
-                )}
-                variant="contained"
-              >
-                Austria
-              </Button>
-              <Button
-                className={clsx(
-                  styles.bc,
-                  colorScheme == "dark" ? "dark-mode" : null
-                )}
-                variant="contained"
-              >
-                Belgium
-              </Button>
-              <Button
-                className={clsx(
-                  styles.bc,
-                  colorScheme == "dark" ? "dark-mode" : null
-                )}
-                variant="contained"
-              >
-                Czech Republic
-              </Button>
+              {countryDetail.bordersByName.map((border) => (
+                <Button
+                  className={clsx(
+                    styles.bc,
+                    colorScheme == "dark" ? "dark-mode" : null
+                  )}
+                  variant="contained"
+                >
+                  {border}
+                </Button>
+              ))}
             </div>
           </Grid>
         </Grid>
@@ -212,6 +212,8 @@ function Detail({ className, colorScheme }) {
 function mapState(state) {
   return {
     colorScheme: state.colorScheme,
+    countryDetail: state.countryDetail,
+    countries: state.countries,
   };
 }
 export default connect(mapState)(Detail);
