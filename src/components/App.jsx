@@ -4,6 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
 
 import Header from "./Header";
 import Search from "./Search";
@@ -21,6 +22,10 @@ const useStyles = makeStyles((theme) => ({
         props.colorScheme == "dark"
           ? theme.palette.neutral.veryDarkBlueDMBG
           : theme.palette.neutral.veryLightGray,
+      color:
+        props.colorScheme == "dark"
+          ? "white"
+          : theme.palette.neutral.veryDarkBlueLMT,
     }),
   },
   containerSearch: {
@@ -45,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: 32,
   },
 }));
-function App({ colorScheme, fetchCountries }) {
+function App({ colorScheme, fetchCountries, filter }) {
   const styles = useStyles({ colorScheme });
   // componentDidMount
   useEffect(() => {
@@ -63,6 +68,7 @@ function App({ colorScheme, fetchCountries }) {
             <Filter />
           </Grid>
         </Grid>
+        <Typography variant="h1">{filter}</Typography>
       </Container>
       <Container className={styles.containerCountries}>
         <ListCountries />
@@ -77,6 +83,7 @@ function mapState(state) {
   return {
     colorScheme: state.colorScheme,
     countries: state.countries,
+    filter: state.filter,
   };
 }
 function mapDispatch(dispatch) {

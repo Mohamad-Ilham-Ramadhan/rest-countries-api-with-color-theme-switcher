@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
@@ -10,12 +10,20 @@ import Typography from "@material-ui/core/Typography";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: 263,
+    position: "relative",
+    width: 263,
     backgroundColor: "white",
     "&.dark-mode": {
       backgroundColor: theme.palette.neutral.darkBlue,
       color: "white",
     },
+  },
+  fallbackImg: {
+    width: 263,
+    height: 160,
+    backgroundColor: "gray",
+    position: "absolute",
+    top: 0,
   },
   media: {
     width: "100%",
@@ -46,6 +54,7 @@ function CardCountry({
   colorScheme,
 }) {
   const styles = useStyles();
+  const [loaded, setLoaded] = useState(false);
   return (
     <Card
       className={clsx(
@@ -55,7 +64,14 @@ function CardCountry({
       )}
       elevation={4}
     >
-      <img className={styles.media} src={image} alt="Flag" />
+      <img
+        className={styles.media}
+        src={image}
+        alt="Flag"
+        onLoad={() => setLoaded(true)}
+      />
+      {loaded ? null : <div className={styles.fallbackImg}></div>}
+
       <CardContent className={styles.content}>
         <Typography className={styles.name} variant="h2" component="h2">
           {name}

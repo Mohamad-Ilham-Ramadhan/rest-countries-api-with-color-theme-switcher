@@ -14,22 +14,21 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "space-around",
     flexWrap: "wrap",
+    marginLeft: -8,
+    marginRight: -8,
     [theme.breakpoints.up("md")]: {
       justifyContent: "space-between",
     },
   },
   card: {
     marginBottom: 40,
+    marginLeft: 8,
+    marginRight: 8,
   },
   hack: {
     width: 263,
   },
 }));
-const Row = ({ index, style }) => (
-  <div className={index % 2 ? "ListItemOdd" : "ListItemEven"} style={style}>
-    Row {index}
-  </div>
-);
 
 function ListCountries({ countries, filteredCountries }) {
   const styles = useStyles();
@@ -61,6 +60,17 @@ function ListCountries({ countries, filteredCountries }) {
               capital={country.capital}
             />
           ))}
+      {/* {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((key) => (
+        <CardCountry
+          key={key}
+          className={styles.card}
+          name="Germany"
+          image={flagGerman}
+          population="123,123,123"
+          region="Europe"
+          capital="Berlin"
+        />
+      ))} */}
       {/* Tambahin hacks nya untuk mendorong last item jika "lubang" semaking banyak saat (viewport semakin lebar) */}
       <i className={styles.hack} aria-hidden="true"></i>
       <i className={styles.hack} aria-hidden="true"></i>

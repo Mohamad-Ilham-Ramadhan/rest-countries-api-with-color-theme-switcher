@@ -12,6 +12,7 @@ import Backdrop from "@material-ui/core/Backdrop";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 // Actions:
 import filterCountries from "../actions/filterCountries";
+import selectFilter from "../actions/selectFilter";
 import closeFilterMenu from "../actions/closeFilterMenu";
 import toggleFilterMenu from "../actions/toggleFilterMenu";
 const useStyles = makeStyles((theme) => ({
@@ -84,13 +85,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const regions = ["Africa", "America", "Asia", "Europe", "Oceania"];
+const regions = ["All", "Africa", "America", "Asia", "Europe", "Oceania"];
 function Filter({
   className,
   colorScheme,
   filterMenu,
   countries,
   filterCountries,
+  selectFilter,
   closeFilterMenu,
   toggleFilterMenu,
 }) {
@@ -129,6 +131,7 @@ function Filter({
                 key={region}
                 onClick={() => {
                   filterCountries(region, countries);
+                  selectFilter(region);
                   closeFilterMenu();
                 }}
               >
@@ -160,6 +163,7 @@ function mapDispatch(dispatch) {
   return {
     filterCountries: (region, countries) =>
       dispatch(filterCountries(region, countries)),
+    selectFilter: (region, countries) => dispatch(selectFilter(region)),
     closeFilterMenu: () => dispatch(closeFilterMenu()),
     toggleFilterMenu: () => dispatch(toggleFilterMenu()),
   };
