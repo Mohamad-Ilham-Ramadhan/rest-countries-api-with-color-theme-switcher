@@ -85,6 +85,15 @@ const customizedTheme = createMuiTheme({
         textTransform: "none",
         transition: "background-color 0ms",
       },
+      contained: {
+        //light mode
+        "&:hover": {
+          backgroundColor: "white",
+        },
+        "&.dark-mode:hover": {
+          backgroundColor: lighten(darkBlue, 0.1),
+        },
+      },
     },
   },
 });

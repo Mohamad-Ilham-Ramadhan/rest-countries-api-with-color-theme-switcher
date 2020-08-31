@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import clsx from "clsx";
 import { useParams } from "react-router-dom";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, lighten } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
@@ -23,6 +23,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: 62,
     boxShadow:
       "0px 3px 3px -2px rgba(0,0,0,0.06), 0px 3px 3px 2px rgba(0,0,0,0.03), 0px 2px 6px 2px rgba(0,0,0,0.02)",
+
     "& svg": {
       marginRight: 8,
     },
