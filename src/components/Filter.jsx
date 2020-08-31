@@ -85,7 +85,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const regions = ["All", "Africa", "America", "Asia", "Europe", "Oceania"];
+const regions = ["All", "Africa", "Americas", "Asia", "Europe", "Oceania"];
 function Filter({
   className,
   colorScheme,

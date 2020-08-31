@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import Fuse from "fuse.js";
 import { connect } from "react-redux";
 import clsx from "clsx";
 import { makeStyles, ThemeProvider } from "@material-ui/core/styles";
@@ -8,6 +9,9 @@ import IconButton from "@material-ui/core/IconButton";
 import Paper from "@material-ui/core/Paper";
 
 import SearchIcon from "@material-ui/icons/Search";
+
+import searchCountries from "../actions/searchCountries";
+import selectFilter from "../actions/selectFilter";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -65,8 +69,35 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Search({ className, colorScheme }) {
+function Search({
+  className,
+  colorScheme,
+  countries,
+  filteredCountries,
+  searchCountries,
+  selectFilter,
+}) {
   const styles = useStyles();
+  const [value, setValue] = useState();
+  function onChange(e) {
+    setValue(e.target.value);
+  }
+  function onKeyDown(value, e) {
+    if (e.key == "Enter") {
+      selectFilter("All");
+      const options = {
+        threshold: 0.6,
+        // ignoreLocation: true,
+        keys: ["name"],
+      };
+
+      const fuse = new Fuse(countries, options);
+
+      searchCountries(
+        fuse.search(value).map((country) => ({ ...country.item }))
+      );
+    }
+  }
   return (
     <Paper
       className={clsx(
@@ -90,6 +121,9 @@ function Search({ className, colorScheme }) {
           colorScheme == "dark" ? "dark-mode" : null
         )}
         placeholder="Search for a country..."
+        value={value}
+        onChange={onChange}
+        onKeyDown={(e) => onKeyDown(value, e)}
       />
     </Paper>
   );
@@ -97,9 +131,13 @@ function Search({ className, colorScheme }) {
 function mapState(state) {
   return {
     colorScheme: state.colorScheme,
+    countries: state.countries,
   };
 }
 function mapDispatch(dispatch) {
-  return {};
+  return {
+    searchCountries: (countries) => dispatch(searchCountries(countries)),
+    selectFilter: (region) => dispatch(selectFilter(region)),
+  };
 }
 export default connect(mapState, mapDispatch)(Search);
