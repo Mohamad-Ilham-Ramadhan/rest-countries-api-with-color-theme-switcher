@@ -10,6 +10,10 @@ import ButtonBase from "@material-ui/core/ButtonBase";
 import Backdrop from "@material-ui/core/Backdrop";
 
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+// Actions:
+import filterCountries from "../actions/filterCountries";
+import closeFilterMenu from "../actions/closeFilterMenu";
+import toggleFilterMenu from "../actions/toggleFilterMenu";
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 200,
@@ -79,13 +83,19 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "transparent",
   },
 }));
-// colorScheme == "dark" ? "dark-mode" : null
-function Filter({ className, colorScheme }) {
-  const [open, setOpen] = React.useState(false);
+
+const regions = ["Africa", "America", "Asia", "Europe", "Oceania"];
+function Filter({
+  className,
+  colorScheme,
+  filterMenu,
+  countries,
+  filterCountries,
+  closeFilterMenu,
+  toggleFilterMenu,
+}) {
   const styles = useStyles();
-  function handleClose() {
-    setOpen(false);
-  }
+
   return (
     <div className={clsx(styles.root, className)}>
       <Paper
@@ -95,17 +105,17 @@ function Filter({ className, colorScheme }) {
         )}
         elevation={4}
       >
-        <ButtonBase onClick={() => setOpen((open) => !open)}>
+        <ButtonBase onClick={toggleFilterMenu}>
           <Typography>Filter by Region</Typography>
           <ExpandMoreIcon />
         </ButtonBase>
       </Paper>
-      {open && (
+      {filterMenu && (
         <>
           <Backdrop
             className={styles.backdrop}
-            open={open}
-            onClick={handleClose}
+            open={filterMenu}
+            onClick={closeFilterMenu}
           />
           <Paper
             className={clsx(
@@ -114,20 +124,26 @@ function Filter({ className, colorScheme }) {
             )}
             elevation={4}
           >
-            <FilterItem>Africa</FilterItem>
-            <FilterItem>America</FilterItem>
-            <FilterItem>Asia</FilterItem>
-            <FilterItem>Europe</FilterItem>
-            <FilterItem>Oceania</FilterItem>
+            {regions.map((region) => (
+              <FilterItem
+                key={region}
+                onClick={() => {
+                  filterCountries(region, countries);
+                  closeFilterMenu();
+                }}
+              >
+                {region}
+              </FilterItem>
+            ))}
           </Paper>
         </>
       )}
     </div>
   );
 }
-function FilterItem({ className, children }) {
+function FilterItem({ className, children, onClick }) {
   return (
-    <ButtonBase className={clsx(className)}>
+    <ButtonBase className={clsx(className)} onClick={onClick}>
       <Typography>{children}</Typography>
     </ButtonBase>
   );
@@ -136,7 +152,17 @@ function FilterItem({ className, children }) {
 function mapState(state) {
   return {
     colorScheme: state.colorScheme,
+    countries: state.countries,
+    filterMenu: state.filterMenu,
+  };
+}
+function mapDispatch(dispatch) {
+  return {
+    filterCountries: (region, countries) =>
+      dispatch(filterCountries(region, countries)),
+    closeFilterMenu: () => dispatch(closeFilterMenu()),
+    toggleFilterMenu: () => dispatch(toggleFilterMenu()),
   };
 }
 
-export default connect(mapState)(Filter);
+export default connect(mapState, mapDispatch)(Filter);

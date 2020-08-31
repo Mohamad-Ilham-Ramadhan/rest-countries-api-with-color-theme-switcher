@@ -55,23 +55,21 @@ function CardCountry({
       )}
       elevation={4}
     >
-      <CardActionArea>
-        <img className={styles.media} src={image} alt="Flag" />
-        <CardContent className={styles.content}>
-          <Typography className={styles.name} variant="h2" component="h2">
-            {name}
-          </Typography>
-          <Typography className={styles.info}>
-            Population: <span>{population}</span>
-          </Typography>
-          <Typography className={styles.info}>
-            Region: <span>{region}</span>
-          </Typography>
-          <Typography className={styles.info}>
-            Capital: <span>{capital}</span>
-          </Typography>
-        </CardContent>
-      </CardActionArea>
+      <img className={styles.media} src={image} alt="Flag" />
+      <CardContent className={styles.content}>
+        <Typography className={styles.name} variant="h2" component="h2">
+          {name}
+        </Typography>
+        <Typography className={styles.info}>
+          Population: <span>{population}</span>
+        </Typography>
+        <Typography className={styles.info}>
+          Region: <span>{region}</span>
+        </Typography>
+        <Typography className={styles.info}>
+          Capital: <span>{capital}</span>
+        </Typography>
+      </CardContent>
     </Card>
   );
 }

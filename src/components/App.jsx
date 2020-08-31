@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -45,8 +45,12 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: 32,
   },
 }));
-function App({ colorScheme }) {
+function App({ colorScheme, fetchCountries }) {
   const styles = useStyles({ colorScheme });
+  // componentDidMount
+  useEffect(() => {
+    fetchCountries();
+  }, []);
   return (
     <>
       <Header className={styles.header} />
@@ -72,6 +76,12 @@ function App({ colorScheme }) {
 function mapState(state) {
   return {
     colorScheme: state.colorScheme,
+    countries: state.countries,
   };
 }
-export default connect(mapState)(App);
+function mapDispatch(dispatch) {
+  return {
+    fetchCountries: () => dispatch(fetchCountries()),
+  };
+}
+export default connect(mapState, mapDispatch)(App);
