@@ -102,19 +102,22 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   bc: {
-    backgroundColor: "white",
-    padding: [4, 24],
-    fontSize: ".775rem",
+    textDecoration: "none",
     marginRight: 10,
     marginBottom: 10,
-    boxShadow:
-      "0px 3px 3px -2px rgba(0,0,0,0.06), 0px 3px 3px 2px rgba(0,0,0,0.03), 0px 2px 6px 2px rgba(0,0,0,0.02)",
-    "&:last-child": {
-      marginRight: 0,
-    },
-    "&.dark-mode": {
-      backgroundColor: theme.palette.neutral.darkBlue,
-      color: "white",
+    "& button": {
+      backgroundColor: "white",
+      padding: [4, 24],
+      fontSize: ".775rem",
+      boxShadow:
+        "0px 3px 3px -2px rgba(0,0,0,0.06), 0px 3px 3px 2px rgba(0,0,0,0.03), 0px 2px 6px 2px rgba(0,0,0,0.02)",
+      "&:last-child": {
+        marginRight: 0,
+      },
+      "&.dark-mode": {
+        backgroundColor: theme.palette.neutral.darkBlue,
+        color: "white",
+      },
     },
   },
 }));
@@ -207,16 +210,12 @@ function Detail({
                   onClick={() => {
                     getCountryDetail(border, countries);
                   }}
+                  className={clsx(
+                    styles.bc,
+                    colorScheme == "dark" ? "dark-mode" : null
+                  )}
                 >
-                  <Button
-                    className={clsx(
-                      styles.bc,
-                      colorScheme == "dark" ? "dark-mode" : null
-                    )}
-                    variant="contained"
-                  >
-                    {border}
-                  </Button>
+                  <Button variant="contained">{border}</Button>
                 </Link>
               ))}
             </div>
