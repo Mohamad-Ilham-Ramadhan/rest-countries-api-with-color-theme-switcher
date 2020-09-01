@@ -249,6 +249,7 @@ function Detail({
                     ? null
                     : countryDetail.bordersByName.map((border) => (
                         <Link
+                          key={border}
                           to={`/detail/${border}`}
                           onClick={() => {
                             getCountryDetail(border, countries);
