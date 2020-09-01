@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import clsx from "clsx";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { makeStyles, lighten } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
@@ -10,6 +10,9 @@ import Grid from "@material-ui/core/Grid";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 
 import flag from "../images/german-flag.svg";
+
+// Actions
+import getCountryDetail from "../actions/getCountryDetail";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -116,12 +119,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Detail({ className, colorScheme, countryDetail, countries }) {
+function Detail({
+  className,
+  colorScheme,
+  countryDetail,
+  countries,
+  getCountryDetail,
+}) {
   const styles = useStyles();
   const params = useParams();
   window.countryDetail = countryDetail;
   window.countries = countries;
-  console.log(window.countryDetail);
+  console.log(countryDetail);
   return (
     <section
       className={clsx(
@@ -169,7 +178,7 @@ function Detail({ className, colorScheme, countryDetail, countries }) {
             <Grid className={styles.detail2} item xs={12} md={6}>
               <Typography>
                 Top Level Domain:{" "}
-                <span>{countryDetail.topLevelDomain.toString()}</span>
+                <span>{countryDetail.topLevelDomain.join(", ")}</span>
               </Typography>
               <Typography>
                 Currencies:{" "}
@@ -193,15 +202,22 @@ function Detail({ className, colorScheme, countryDetail, countries }) {
                 Border Countries:
               </Typography>
               {countryDetail.bordersByName.map((border) => (
-                <Button
-                  className={clsx(
-                    styles.bc,
-                    colorScheme == "dark" ? "dark-mode" : null
-                  )}
-                  variant="contained"
+                <Link
+                  to={`/detail/${border}`}
+                  onClick={() => {
+                    getCountryDetail(border, countries);
+                  }}
                 >
-                  {border}
-                </Button>
+                  <Button
+                    className={clsx(
+                      styles.bc,
+                      colorScheme == "dark" ? "dark-mode" : null
+                    )}
+                    variant="contained"
+                  >
+                    {border}
+                  </Button>
+                </Link>
               ))}
             </div>
           </Grid>
@@ -217,4 +233,11 @@ function mapState(state) {
     countries: state.countries,
   };
 }
-export default connect(mapState)(Detail);
+function mapDispatch(dispatch) {
+  return {
+    getCountryDetail: (border, countries) => {
+      dispatch(getCountryDetail(border, countries));
+    },
+  };
+}
+export default connect(mapState, mapDispatch)(Detail);

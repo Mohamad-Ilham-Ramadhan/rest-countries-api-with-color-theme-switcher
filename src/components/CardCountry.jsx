@@ -116,8 +116,9 @@ function mapState(state) {
 }
 function mapDispatch(dispatch) {
   return {
-    getCountryDetail: (name, countries) =>
-      dispatch(getCountryDetail(name, countries)),
+    getCountryDetail: (name, countries) => {
+      dispatch(getCountryDetail(name, countries));
+    },
   };
 }
 export default connect(mapState, mapDispatch)(CardCountry);

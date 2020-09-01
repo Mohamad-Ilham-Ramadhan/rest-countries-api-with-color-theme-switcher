@@ -56,14 +56,14 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: 32,
   },
 }));
-function App({ colorScheme, fetchCountries, filter }) {
+function App({ colorScheme, fetchCountries, countryDetail, filter }) {
   const styles = useStyles({ colorScheme });
   // const match = useRouteMatch("/sdf");
   // componentDidMount
   useEffect(() => {
     fetchCountries();
   }, []);
-  // console.log(match);
+  console.log(countryDetail);
   return (
     <Router>
       <Header className={styles.header} />
@@ -98,6 +98,7 @@ function mapState(state) {
   return {
     colorScheme: state.colorScheme,
     countries: state.countries,
+    countryDetail: state.countryDetail,
     filter: state.filter,
   };
 }
