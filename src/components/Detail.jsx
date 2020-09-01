@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import clsx from "clsx";
-import { Link, useParams } from "react-router-dom";
+import { Link, Redirect, useParams } from "react-router-dom";
 import { makeStyles, lighten } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 
@@ -13,6 +14,7 @@ import flag from "../images/german-flag.svg";
 
 // Actions
 import getCountryDetail from "../actions/getCountryDetail";
+import fetchCountries from "../actions/fetchCountries";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -20,8 +22,20 @@ const useStyles = makeStyles((theme) => ({
       color: "white",
     },
   },
+  loading: {
+    marginTop: 150,
+    marginLeft: "auto",
+    marginRight: "auto",
+    display: "block",
+  },
   back: {
     textDecoration: "none",
+    "&.dark-mode": {
+      "& button": {
+        backgroundColor: theme.palette.neutral.darkBlue,
+        color: "white",
+      },
+    },
     "& button": {
       backgroundColor: "white",
       padding: [4, 24],
@@ -30,10 +44,6 @@ const useStyles = makeStyles((theme) => ({
         "0px 3px 3px -2px rgba(0,0,0,0.06), 0px 3px 3px 2px rgba(0,0,0,0.03), 0px 2px 6px 2px rgba(0,0,0,0.02)",
       "& svg": {
         marginRight: 8,
-      },
-      "&.dark-mode": {
-        backgroundColor: theme.palette.neutral.darkBlue,
-        color: "white",
       },
     },
   },
@@ -130,103 +140,123 @@ function Detail({
   countryDetail,
   countries,
   getCountryDetail,
+  fetchCountries,
 }) {
   const styles = useStyles();
   const params = useParams();
-  window.countryDetail = countryDetail;
-  window.countries = countries;
-  console.log(countryDetail);
+  useEffect(() => {
+    if (countries.length === 0) {
+      fetchCountries();
+    } else {
+    }
+    if (
+      countryDetail.hasOwnProperty("name") === false &&
+      countries.length !== 0
+    ) {
+      getCountryDetail(params.name, countries);
+    }
+  }, [countries.length]);
   return (
-    <section
-      className={clsx(
-        styles.root,
-        className,
-        colorScheme == "dark" ? "dark-mode" : null
-      )}
-    >
-      <Link
-        to="/"
-        className={clsx(
-          styles.back,
-          colorScheme == "dark" ? "dark-mode" : null
-        )}
-      >
-        <Button variant="contained">
-          <KeyboardBackspaceIcon />
-          Back
-        </Button>
-      </Link>
-      <Grid container>
-        <Grid className={styles.gridFlag} item xs={12} md={6}>
-          <img className={styles.flag} src={countryDetail.flag} alt="Flag" />
-        </Grid>
-        <Grid className={styles.gridDetail} item xs={12} md={6}>
-          <Typography className={styles.h1} variant="h1">
-            {countryDetail.name}
-          </Typography>
-          <Grid className={styles.detail} container>
-            <Grid className={styles.detail1} item xs={12} md={6}>
-              <Typography>
-                Native Name: <span>{countryDetail.nativeName}</span>
-              </Typography>
-              <Typography>
-                Population: <span>{countryDetail.population}</span>
-              </Typography>
-              <Typography>
-                Region: <span>{countryDetail.region}</span>
-              </Typography>
-              <Typography>
-                Sub Region: <span>{countryDetail.subregion}</span>
-              </Typography>
-              <Typography>
-                Capital: <span>{countryDetail.capital}</span>
-              </Typography>
+    <>
+      {countryDetail.hasOwnProperty("name") === false ? (
+        <CircularProgress className={styles.loading} size={80} />
+      ) : (
+        <section
+          className={clsx(
+            styles.root,
+            className,
+            colorScheme == "dark" ? "dark-mode" : null
+          )}
+        >
+          <Link
+            to="/"
+            className={clsx(
+              styles.back,
+              colorScheme == "dark" ? "dark-mode" : null
+            )}
+          >
+            <Button variant="contained">
+              <KeyboardBackspaceIcon />
+              Back
+            </Button>
+          </Link>
+          <Grid container>
+            <Grid className={styles.gridFlag} item xs={12} md={6}>
+              <img
+                className={styles.flag}
+                src={countryDetail.flag}
+                alt="Flag"
+              />
             </Grid>
-            <Grid className={styles.detail2} item xs={12} md={6}>
-              <Typography>
-                Top Level Domain:{" "}
-                <span>{countryDetail.topLevelDomain.join(", ")}</span>
+            <Grid className={styles.gridDetail} item xs={12} md={6}>
+              <Typography className={styles.h1} variant="h1">
+                {countryDetail.name}
               </Typography>
-              <Typography>
-                Currencies:{" "}
-                <span>
-                  {countryDetail.currencies
-                    .map((currency) => currency.name)
-                    .join(", ")}
-                </span>
-              </Typography>
-              <Typography>
-                Languages:{" "}
-                <span>
-                  {countryDetail.languages
-                    .map((language) => language.name)
-                    .join(", ")}
-                </span>
-              </Typography>
+              <Grid className={styles.detail} container>
+                <Grid className={styles.detail1} item xs={12} md={6}>
+                  <Typography>
+                    Native Name: <span>{countryDetail.nativeName}</span>
+                  </Typography>
+                  <Typography>
+                    Population: <span>{countryDetail.population}</span>
+                  </Typography>
+                  <Typography>
+                    Region: <span>{countryDetail.region}</span>
+                  </Typography>
+                  <Typography>
+                    Sub Region: <span>{countryDetail.subregion}</span>
+                  </Typography>
+                  <Typography>
+                    Capital: <span>{countryDetail.capital}</span>
+                  </Typography>
+                </Grid>
+                <Grid className={styles.detail2} item xs={12} md={6}>
+                  <Typography>
+                    Top Level Domain:{" "}
+                    <span>{countryDetail.topLevelDomain.join(", ")}</span>
+                  </Typography>
+                  <Typography>
+                    Currencies:{" "}
+                    <span>
+                      {countryDetail.currencies
+                        .map((currency) => currency.name)
+                        .join(", ")}
+                    </span>
+                  </Typography>
+                  <Typography>
+                    Languages:{" "}
+                    <span>
+                      {countryDetail.languages
+                        .map((language) => language.name)
+                        .join(", ")}
+                    </span>
+                  </Typography>
+                </Grid>
+                <div className={styles.wrapperBorders}>
+                  <Typography variant="h3" component="h2">
+                    Border Countries:
+                  </Typography>
+                  {countryDetail.bordersByName.map((border) => (
+                    <Link
+                      to={`/detail/${border}`}
+                      onClick={() => {
+                        getCountryDetail(border, countries);
+                      }}
+                      className={clsx(
+                        styles.bc,
+                        colorScheme == "dark" ? "dark-mode" : null
+                      )}
+                    >
+                      <Button variant="contained">{border}</Button>
+                    </Link>
+                  ))}
+                </div>
+              </Grid>
             </Grid>
-            <div className={styles.wrapperBorders}>
-              <Typography variant="h3" component="h2">
-                Border Countries:
-              </Typography>
-              {countryDetail.bordersByName.map((border) => (
-                <Link
-                  to={`/detail/${border}`}
-                  onClick={() => {
-                    getCountryDetail(border, countries);
-                  }}
-                  className={clsx(
-                    styles.bc,
-                    colorScheme == "dark" ? "dark-mode" : null
-                  )}
-                >
-                  <Button variant="contained">{border}</Button>
-                </Link>
-              ))}
-            </div>
           </Grid>
-        </Grid>
-      </Grid>
-    </section>
+        </section>
+      )}
+    </>
   );
 }
 function mapState(state) {
@@ -240,6 +270,9 @@ function mapDispatch(dispatch) {
   return {
     getCountryDetail: (border, countries) => {
       dispatch(getCountryDetail(border, countries));
+    },
+    fetchCountries: () => {
+      dispatch(fetchCountries());
     },
   };
 }

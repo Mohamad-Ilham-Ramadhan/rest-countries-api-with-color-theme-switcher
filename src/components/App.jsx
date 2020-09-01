@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 
 import {
-  BrowserRouter as Router,
+  HashRouter as Router,
   Switch,
   Route,
   useRouteMatch,
@@ -11,6 +11,7 @@ import {
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 import Header from "./Header";
 import Search from "./Search";
@@ -37,6 +38,12 @@ const useStyles = makeStyles((theme) => ({
   containerSearch: {
     marginBottom: 32,
   },
+  loading: {
+    marginTop: 150,
+    marginLeft: "auto",
+    marginRight: "auto",
+    display: "block",
+  },
   containerCountries: {
     paddingLeft: 56,
     paddingRight: 56,
@@ -56,14 +63,24 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: 32,
   },
 }));
-function App({ colorScheme, fetchCountries, countryDetail, filter }) {
+function App({
+  colorScheme,
+  fetchCountries,
+  countries,
+  countryDetail,
+  filter,
+  loadingCountries,
+}) {
   const styles = useStyles({ colorScheme });
   // const match = useRouteMatch("/sdf");
   // componentDidMount
   useEffect(() => {
-    fetchCountries();
+    if (countries.length === 0) {
+      console.log("<App /> fetching");
+      fetchCountries();
+    }
   }, []);
-  console.log(countryDetail);
+  // console.log(countryDetail);
   return (
     <Router>
       <Header className={styles.header} />
@@ -87,7 +104,11 @@ function App({ colorScheme, fetchCountries, countryDetail, filter }) {
           </Container>
 
           <Container className={styles.containerCountries}>
-            <ListCountries />
+            {loadingCountries ? (
+              <CircularProgress className={styles.loading} size={80} />
+            ) : (
+              <ListCountries />
+            )}
           </Container>
         </Route>
       </Switch>
@@ -100,6 +121,7 @@ function mapState(state) {
     countries: state.countries,
     countryDetail: state.countryDetail,
     filter: state.filter,
+    loadingCountries: state.loadingCountries,
   };
 }
 function mapDispatch(dispatch) {

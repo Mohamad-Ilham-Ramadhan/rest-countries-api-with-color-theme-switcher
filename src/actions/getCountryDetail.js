@@ -1,9 +1,9 @@
 export default function getCountryDetail(name, countries) {
   console.log(name);
+  console.log(countries);
   const country = countries.find(
     (country) => country.name.toUpperCase() === name.toUpperCase()
   );
-  console.log(country);
   return {
     type: "GET_COUNTRY_DETAIL",
     country: { ...country, bordersByName: bordersByName(country, countries) },

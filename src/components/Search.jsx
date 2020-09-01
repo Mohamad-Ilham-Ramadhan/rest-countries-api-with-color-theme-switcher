@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
         fontSize: "1.5rem",
       },
     },
-    "&.dark-mode": {
+    "&.dark-mode, &.dark-mode svg": {
       color: "white",
     },
   },

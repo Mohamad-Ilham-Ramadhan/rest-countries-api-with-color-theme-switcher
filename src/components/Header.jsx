@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import clsx from "clsx";
+import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -21,6 +22,13 @@ const useStyles = makeStyles((theme) => ({
 
     "&.dark-mode": {
       backgroundColor: theme.palette.neutral.darkBlue,
+      color: "white",
+    },
+  },
+  where: {
+    textDecoration: "none",
+    color: theme.palette.neutral.veryDarkBlueLMT,
+    "&.dark-mode": {
       color: "white",
     },
   },
@@ -66,9 +74,17 @@ function Header({ className, colorScheme, toggleColorScheme }) {
       elevation={3}
     >
       <Container className={styles.container}>
-        <Typography variant="h4" component="h1">
-          Where in the world?
-        </Typography>
+        <Link
+          className={clsx(
+            styles.where,
+            colorScheme == "dark" ? "dark-mode" : null
+          )}
+          to="/"
+        >
+          <Typography variant="h4" component="h1">
+            Where in the world?
+          </Typography>
+        </Link>
         <Button
           className={styles.mode}
           color="inherit"

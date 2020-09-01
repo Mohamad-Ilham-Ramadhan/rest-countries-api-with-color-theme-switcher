@@ -5,14 +5,16 @@ import countryDetail from "./countryDetail";
 import filteredCountries from "./filteredCountries";
 import filterMenu from "./filterMenu";
 import filter from "./filter";
+import loadingCountries from "./loadingCountries";
 
 const reducer = combineReducers({
+  colorScheme,
   countries,
   countryDetail,
   filteredCountries,
   filterMenu,
   filter,
-  colorScheme,
+  loadingCountries,
 });
 
 export default reducer;
