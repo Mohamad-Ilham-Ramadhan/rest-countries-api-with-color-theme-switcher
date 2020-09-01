@@ -85,17 +85,8 @@ function Search({
   function onKeyDown(value, e) {
     if (e.key == "Enter") {
       selectFilter("All");
-      const options = {
-        threshold: 0.6,
-        // ignoreLocation: true,
-        keys: ["name"],
-      };
 
-      const fuse = new Fuse(countries, options);
-
-      searchCountries(
-        fuse.search(value).map((country) => ({ ...country.item }))
-      );
+      searchCountries(value, countries);
     }
   }
   return (
@@ -136,7 +127,8 @@ function mapState(state) {
 }
 function mapDispatch(dispatch) {
   return {
-    searchCountries: (countries) => dispatch(searchCountries(countries)),
+    searchCountries: (value, countries) =>
+      dispatch(searchCountries(value, countries)),
     selectFilter: (region) => dispatch(selectFilter(region)),
   };
 }

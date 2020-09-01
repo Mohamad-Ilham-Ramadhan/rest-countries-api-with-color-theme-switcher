@@ -2,12 +2,7 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 
-import {
-  HashRouter as Router,
-  Switch,
-  Route,
-  useRouteMatch,
-} from "react-router-dom";
+import { HashRouter as Router, Switch, Route } from "react-router-dom";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
@@ -72,11 +67,8 @@ function App({
   loadingCountries,
 }) {
   const styles = useStyles({ colorScheme });
-  // const match = useRouteMatch("/sdf");
-  // componentDidMount
   useEffect(() => {
     if (countries.length === 0) {
-      console.log("<App /> fetching");
       fetchCountries();
     }
   }, []);

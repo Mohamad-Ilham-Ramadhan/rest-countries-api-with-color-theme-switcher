@@ -1,6 +1,4 @@
 export default function getCountryDetail(name, countries) {
-  console.log(name);
-  console.log(countries);
   const country = countries.find(
     (country) => country.name.toUpperCase() === name.toUpperCase()
   );

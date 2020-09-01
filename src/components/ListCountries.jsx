@@ -32,9 +32,6 @@ const useStyles = makeStyles((theme) => ({
 
 function ListCountries({ countries, filteredCountries }) {
   const styles = useStyles();
-  window.countries = countries;
-  console.log(countries);
-  // console.log(filteredCountries);
   return (
     <div className={styles.root}>
       {filteredCountries.length == 0

@@ -3,8 +3,12 @@ import axios from "axios";
 // A thunk
 export default function fetchCountries() {
   return function (dispatch) {
+    console.log("fetching bro!!!");
     dispatch({
       type: "FETCH_COUNTRIES",
+    });
+    dispatch({
+      type: "FETCH_COUNTRY_DETAIL",
     });
     axios
       .get("https://restcountries.eu/rest/v2/all")
@@ -21,6 +25,7 @@ export default function fetchCountries() {
       })
       .finally(() => {
         dispatch({ type: "DONE_COUNTRIES" });
+        dispatch({ type: "DONE_COUNTRY_DETAIL" });
       });
   };
 }

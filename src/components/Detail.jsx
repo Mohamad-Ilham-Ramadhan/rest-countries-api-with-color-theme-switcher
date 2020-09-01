@@ -14,7 +14,6 @@ import flag from "../images/german-flag.svg";
 
 // Actions
 import getCountryDetail from "../actions/getCountryDetail";
-import fetchCountries from "../actions/fetchCountries";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -34,6 +33,9 @@ const useStyles = makeStyles((theme) => ({
       "& button": {
         backgroundColor: theme.palette.neutral.darkBlue,
         color: "white",
+        "&:hover": {
+          backgroundColor: lighten(theme.palette.neutral.darkBlue, 0.1),
+        },
       },
     },
     "& button": {
@@ -117,6 +119,15 @@ const useStyles = makeStyles((theme) => ({
     textDecoration: "none",
     marginRight: 10,
     marginBottom: 10,
+    "&.dark-mode": {
+      "& button": {
+        backgroundColor: theme.palette.neutral.darkBlue,
+        color: "white",
+        "&:hover": {
+          backgroundColor: lighten(theme.palette.neutral.darkBlue, 0.1),
+        },
+      },
+    },
     "& button": {
       backgroundColor: "white",
       padding: [4, 24],
@@ -125,10 +136,6 @@ const useStyles = makeStyles((theme) => ({
         "0px 3px 3px -2px rgba(0,0,0,0.06), 0px 3px 3px 2px rgba(0,0,0,0.03), 0px 2px 6px 2px rgba(0,0,0,0.02)",
       "&:last-child": {
         marginRight: 0,
-      },
-      "&.dark-mode": {
-        backgroundColor: theme.palette.neutral.darkBlue,
-        color: "white",
       },
     },
   },
@@ -140,25 +147,19 @@ function Detail({
   countryDetail,
   countries,
   getCountryDetail,
-  fetchCountries,
+  loadingCountryDetail,
 }) {
   const styles = useStyles();
   const params = useParams();
   useEffect(() => {
-    if (countries.length === 0) {
-      fetchCountries();
-    } else {
-    }
-    if (
-      countryDetail.hasOwnProperty("name") === false &&
-      countries.length !== 0
-    ) {
+    if (countries.length > 0) {
       getCountryDetail(params.name, countries);
     }
-  }, [countries.length]);
+  }, [countries]);
+
   return (
     <>
-      {countryDetail.hasOwnProperty("name") === false ? (
+      {loadingCountryDetail === true ? (
         <CircularProgress className={styles.loading} size={80} />
       ) : (
         <section
@@ -213,22 +214,30 @@ function Detail({
                 <Grid className={styles.detail2} item xs={12} md={6}>
                   <Typography>
                     Top Level Domain:{" "}
-                    <span>{countryDetail.topLevelDomain.join(", ")}</span>
+                    <span>
+                      {countryDetail.topLevelDomain === undefined
+                        ? null
+                        : countryDetail.topLevelDomain.join(", ")}
+                    </span>
                   </Typography>
                   <Typography>
                     Currencies:{" "}
                     <span>
-                      {countryDetail.currencies
-                        .map((currency) => currency.name)
-                        .join(", ")}
+                      {countryDetail.currencies === undefined
+                        ? null
+                        : countryDetail.currencies
+                            .map((currency) => currency.name)
+                            .join(", ")}
                     </span>
                   </Typography>
                   <Typography>
                     Languages:{" "}
                     <span>
-                      {countryDetail.languages
-                        .map((language) => language.name)
-                        .join(", ")}
+                      {countryDetail.languages === undefined
+                        ? null
+                        : countryDetail.languages
+                            .map((language) => language.name)
+                            .join(", ")}
                     </span>
                   </Typography>
                 </Grid>
@@ -236,20 +245,22 @@ function Detail({
                   <Typography variant="h3" component="h2">
                     Border Countries:
                   </Typography>
-                  {countryDetail.bordersByName.map((border) => (
-                    <Link
-                      to={`/detail/${border}`}
-                      onClick={() => {
-                        getCountryDetail(border, countries);
-                      }}
-                      className={clsx(
-                        styles.bc,
-                        colorScheme == "dark" ? "dark-mode" : null
-                      )}
-                    >
-                      <Button variant="contained">{border}</Button>
-                    </Link>
-                  ))}
+                  {countryDetail.bordersByName === undefined
+                    ? null
+                    : countryDetail.bordersByName.map((border) => (
+                        <Link
+                          to={`/detail/${border}`}
+                          onClick={() => {
+                            getCountryDetail(border, countries);
+                          }}
+                          className={clsx(
+                            styles.bc,
+                            colorScheme == "dark" ? "dark-mode" : null
+                          )}
+                        >
+                          <Button variant="contained">{border}</Button>
+                        </Link>
+                      ))}
                 </div>
               </Grid>
             </Grid>
@@ -264,15 +275,13 @@ function mapState(state) {
     colorScheme: state.colorScheme,
     countryDetail: state.countryDetail,
     countries: state.countries,
+    loadingCountryDetail: state.loadingCountryDetail,
   };
 }
 function mapDispatch(dispatch) {
   return {
     getCountryDetail: (border, countries) => {
       dispatch(getCountryDetail(border, countries));
-    },
-    fetchCountries: () => {
-      dispatch(fetchCountries());
     },
   };
 }

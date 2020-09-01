@@ -16,8 +16,14 @@ const useStyles = makeStyles((theme) => ({
   root: {
     position: "relative",
     width: 263,
-    backgroundColor: "white",
+    backgroundColor: "transparent",
     textDecoration: "none",
+    "&.dark-mode": {
+      "& .MuiPaper-root": {
+        backgroundColor: theme.palette.neutral.darkBlue,
+        color: "white",
+      },
+    },
     "& .MuiPaper-root": {
       height: "100%",
       "&:hover": {
@@ -25,10 +31,6 @@ const useStyles = makeStyles((theme) => ({
         boxShadow:
           "0px 7px 9px 1px rgba(0,0,0,0.06), 0px 14px 21px 2px rgba(0,0,0,0.03), 0px 5px 26px 4px rgba(0,0,0,0.02)",
       },
-    },
-    "&.dark-mode": {
-      backgroundColor: theme.palette.neutral.darkBlue,
-      color: "white",
     },
   },
   fallbackImg: {
