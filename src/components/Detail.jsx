@@ -21,18 +21,20 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   back: {
-    backgroundColor: "white",
-    padding: [4, 24],
-    marginBottom: 62,
-    boxShadow:
-      "0px 3px 3px -2px rgba(0,0,0,0.06), 0px 3px 3px 2px rgba(0,0,0,0.03), 0px 2px 6px 2px rgba(0,0,0,0.02)",
-
-    "& svg": {
-      marginRight: 8,
-    },
-    "&.dark-mode": {
-      backgroundColor: theme.palette.neutral.darkBlue,
-      color: "white",
+    textDecoration: "none",
+    "& button": {
+      backgroundColor: "white",
+      padding: [4, 24],
+      marginBottom: 62,
+      boxShadow:
+        "0px 3px 3px -2px rgba(0,0,0,0.06), 0px 3px 3px 2px rgba(0,0,0,0.03), 0px 2px 6px 2px rgba(0,0,0,0.02)",
+      "& svg": {
+        marginRight: 8,
+      },
+      "&.dark-mode": {
+        backgroundColor: theme.palette.neutral.darkBlue,
+        color: "white",
+      },
     },
   },
   gridFlag: {
@@ -142,16 +144,18 @@ function Detail({
         colorScheme == "dark" ? "dark-mode" : null
       )}
     >
-      <Button
+      <Link
+        to="/"
         className={clsx(
           styles.back,
           colorScheme == "dark" ? "dark-mode" : null
         )}
-        variant="contained"
       >
-        <KeyboardBackspaceIcon />
-        Back
-      </Button>
+        <Button variant="contained">
+          <KeyboardBackspaceIcon />
+          Back
+        </Button>
+      </Link>
       <Grid container>
         <Grid className={styles.gridFlag} item xs={12} md={6}>
           <img className={styles.flag} src={countryDetail.flag} alt="Flag" />
