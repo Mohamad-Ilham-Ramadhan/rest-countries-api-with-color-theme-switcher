@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import numeral from "numeral";
 import { connect } from "react-redux";
 import clsx from "clsx";
 import { Link, Redirect, useParams } from "react-router-dom";
@@ -199,7 +200,10 @@ function Detail({
                     Native Name: <span>{countryDetail.nativeName}</span>
                   </Typography>
                   <Typography>
-                    Population: <span>{countryDetail.population}</span>
+                    Population:{" "}
+                    <span>
+                      {numeral(countryDetail.population).format("0,0")}
+                    </span>
                   </Typography>
                   <Typography>
                     Region: <span>{countryDetail.region}</span>

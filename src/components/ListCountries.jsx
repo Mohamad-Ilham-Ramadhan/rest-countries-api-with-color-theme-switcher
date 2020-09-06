@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import numeral from "numeral";
 import { connect } from "react-redux";
 import { makeStyles, StylesProvider } from "@material-ui/core/styles";
 import { FixedSizeList as List } from "react-window";
@@ -41,7 +42,7 @@ function ListCountries({ countries, filteredCountries }) {
               className={styles.card}
               name={country.name}
               image={country.flag}
-              population={country.population}
+              population={numeral(country.population).format("0,0")}
               region={country.region}
               capital={country.capital}
             />
@@ -52,7 +53,7 @@ function ListCountries({ countries, filteredCountries }) {
               className={styles.card}
               name={country.name}
               image={country.flag}
-              population={country.population}
+              population={numeral(country.population).format("0,0")}
               region={country.region}
               capital={country.capital}
             />
