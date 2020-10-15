@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -13,6 +13,7 @@ import Search from "./Search";
 import Filter from "./Filter";
 import ListCountries from "./ListCountries";
 import Detail from "./Detail";
+import ReactPaginate from "react-paginate";
 
 // Actions:
 import fetchCountries from "../actions/fetchCountries";
@@ -62,17 +63,40 @@ function App({
   colorScheme,
   fetchCountries,
   countries,
-  countryDetail,
+  filteredCountries,
   filter,
   loadingCountries,
 }) {
   const styles = useStyles({ colorScheme });
+  const [pageOffset, setPageOffset] = useState(0);
+  const [perPage, setPerPage] = useState(20);
+  const [pageCount, setPageCount] = useState(0);
+  const [selectedPage, setSelectedPage] = useState(0);
   useEffect(() => {
     if (countries.length === 0) {
       fetchCountries();
     }
   }, []);
-  // console.log(countryDetail);
+  // countries mah cuma buat initial load/fetch doang
+  useEffect(() => {
+    setPageCount(Math.ceil(countries.length / perPage));
+  }, [countries]);
+  useEffect(() => {
+    // when no search keywords provided
+    if (filteredCountries.length == 0) {
+      setPageCount(Math.ceil(countries.length / perPage));
+    } else {
+      setPageCount(Math.ceil(filteredCountries.length / perPage));
+    }
+    // reset selected page dan rendered countries mulai dari awal
+    setSelectedPage(0);
+    setPageOffset(0);
+  }, [filteredCountries]);
+  function handlePageClick(data) {
+    const selected = data.selected;
+    setPageOffset(selected);
+    setSelectedPage(selected);
+  }
   return (
     <Router>
       <Header className={styles.header} />
@@ -99,8 +123,21 @@ function App({
             {loadingCountries ? (
               <CircularProgress className={styles.loading} size={80} />
             ) : (
-              <ListCountries />
+              <ListCountries offset={pageOffset} perPage={perPage} />
             )}
+          </Container>
+          <Container>
+            <ReactPaginate
+              pageCount={pageCount}
+              pageRangeDisplayed={5}
+              marginPagesDisplayed={1}
+              containerClassName={"pagination"}
+              subContainerClassName={"pages pagination"}
+              activeClassName={"active"}
+              onPageChange={handlePageClick}
+              // initialPage={0}
+              forcePage={selectedPage}
+            ></ReactPaginate>
           </Container>
         </Route>
       </Switch>
@@ -111,6 +148,7 @@ function mapState(state) {
   return {
     colorScheme: state.colorScheme,
     countries: state.countries,
+    filteredCountries: state.filteredCountries,
     countryDetail: state.countryDetail,
     filter: state.filter,
     loadingCountries: state.loadingCountries,
