@@ -6,6 +6,7 @@ import { HashRouter as Router, Switch, Route } from "react-router-dom";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
+import Paper from "@material-ui/core/Paper";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
 import Header from "./Header";
@@ -13,7 +14,7 @@ import Search from "./Search";
 import Filter from "./Filter";
 import ListCountries from "./ListCountries";
 import Detail from "./Detail";
-import ReactPaginate from "react-paginate";
+import Pagination from "./Pagination";
 
 // Actions:
 import fetchCountries from "../actions/fetchCountries";
@@ -127,17 +128,11 @@ function App({
             )}
           </Container>
           <Container>
-            <ReactPaginate
+            <Pagination
               pageCount={pageCount}
-              pageRangeDisplayed={5}
-              marginPagesDisplayed={1}
-              containerClassName={"pagination"}
-              subContainerClassName={"pages pagination"}
-              activeClassName={"active"}
-              onPageChange={handlePageClick}
-              // initialPage={0}
-              forcePage={selectedPage}
-            ></ReactPaginate>
+              handlePageClick={handlePageClick}
+              selectedPage={selectedPage}
+            />
           </Container>
         </Route>
       </Switch>

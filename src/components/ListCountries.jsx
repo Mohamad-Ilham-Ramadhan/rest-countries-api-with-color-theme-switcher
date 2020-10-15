@@ -35,7 +35,6 @@ function ListCountries({
   offset = null,
   perPage = null,
 }) {
-  console.log("di list countries =>", filteredCountries);
   const styles = useStyles();
   let renderCountries;
   filteredCountries.length == 0 ? countries : filteredCountries;
