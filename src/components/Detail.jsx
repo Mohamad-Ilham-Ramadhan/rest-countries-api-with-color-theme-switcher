@@ -8,7 +8,7 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import CircularProgress from "@material-ui/core/CircularProgress";
-
+import Map from "./Map";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 
 import flag from "../images/german-flag.svg";
@@ -140,6 +140,10 @@ const useStyles = makeStyles((theme) => ({
       },
     },
   },
+  coba: {
+    backgroundColor: "tomato",
+    height: 536,
+  },
 }));
 
 function Detail({
@@ -157,7 +161,6 @@ function Detail({
       getCountryDetail(params.name, countries);
     }
   }, [countries]);
-
   return (
     <>
       {loadingCountryDetail === true ? (
@@ -270,6 +273,7 @@ function Detail({
               </Grid>
             </Grid>
           </Grid>
+          <Map location={countryDetail.latlng} />
         </section>
       )}
     </>
