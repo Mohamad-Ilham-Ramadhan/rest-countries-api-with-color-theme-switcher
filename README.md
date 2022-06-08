@@ -28,4 +28,4 @@ Build for production:
 npm run build
 ```
 
-The build files is in dist directory.
+The build files is in 'dist' directory.
