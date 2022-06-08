@@ -19,7 +19,6 @@ const markerIcon = L.icon({
 
 export default function Mapsdf({ className, location }) {
   const styles = useStyles();
-  console.log("location =>", location);
   return (
     <Map
       className={styles.root}

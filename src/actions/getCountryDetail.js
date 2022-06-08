@@ -8,6 +8,9 @@ export default function getCountryDetail(name, countries) {
   };
 }
 function bordersByName(countryDetail, countries) {
+  if (countryDetail.borders === undefined) {
+    return [];
+  }
   return countryDetail.borders.map(
     (border) => countries.find((country) => country.alpha3Code === border).name
   );
