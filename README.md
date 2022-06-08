@@ -27,3 +27,5 @@ Build for production:
 ```bash
 npm run build
 ```
+
+The build files is in dist directory.
