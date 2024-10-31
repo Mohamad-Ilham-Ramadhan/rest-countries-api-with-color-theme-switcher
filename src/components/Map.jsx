@@ -9,6 +9,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     height: 535,
     zIndex: 50,
+    marginBottom: 42,
   },
 }));
 
